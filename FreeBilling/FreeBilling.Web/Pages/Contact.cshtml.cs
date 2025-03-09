@@ -1,3 +1,4 @@
+using FreeBilling.Web.Pages.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -13,8 +14,8 @@ namespace FreeBilling.Web.Pages
         public string Title { get; set; } = "Contact Me";
         public string Message { get; set; } = "";
 
-        //[BindProperty]
-        //public ContactViewModel Contact { get; set; } = new ContactViewModel()
+        [BindProperty]
+        public ContactViewModel Contact { get; set; } = new ContactViewModel();
         //{
         //    Name = "Shawn Wildermuth"
         //};
@@ -24,7 +25,15 @@ namespace FreeBilling.Web.Pages
 
         public void OnPost()
         {
-            Message = "Not implemented";
+            if (ModelState.IsValid)
+            {
+                Message = "Will be sent";
+            }
+            else
+            {
+                Message = "Please fix the errors before sending.";
+            }
+            
         }
     }
 }
