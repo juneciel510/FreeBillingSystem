@@ -15,10 +15,10 @@ if (builder.Environment.IsDevelopment())
 
 
 //Allow us to serve index.html as the default webpage
-//app.UseDefaultFiles();
+app.UseDefaultFiles();
 
-////Allows us to serve files from wwwroot folder
-//app.UseStaticFiles();
+//Allows us to serve files from wwwroot folder
+app.UseStaticFiles();
 
 app.MapRazorPages();
 
