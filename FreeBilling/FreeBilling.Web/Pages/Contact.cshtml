@@ -3,13 +3,14 @@
 @{
 }
 @section Scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
 }
-<h1>@Model.Title</h1>
-<form method="post">
-    <div asp-validation-summary="ModelOnly" style="color: red;"></div>
+<div class="w-96 mx-auto bg-white p-2">
+  <h1>@Model.Title</h1>
+  <form method="post">
+    <div asp-validation-summary="ModelOnly"></div>
     <label asp-for="Contact.Name">Name</label>
     <br />
     <input asp-for="Contact.Name" />
@@ -23,9 +24,9 @@
     <label asp-for="Contact.Subject">Subject</label>
     <br />
     <select asp-for="Contact.Subject">
-        <option>Work</option>
-        <option>Personal</option>
-        <option>Proposal</option>
+      <option>Work</option>
+      <option>Personal</option>
+      <option>Proposal</option>
     </select>
     <span asp-validation-for="Contact.Subject"></span>
     <br />
@@ -34,7 +35,9 @@
     <textarea rows="4" asp-for="Contact.Body"></textarea>
     <span asp-validation-for="Contact.Body"></span>
     <br />
-    <button type="submit">Send</button>
+    <button class="bg-green-600 hover:bg-green-800" type="submit">Send</button>
+    <button>Cancel</button>
     <br />
     <div>@Model.Message</div>
-</form>
+  </form>
+</div>
