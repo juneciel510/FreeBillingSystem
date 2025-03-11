@@ -1,12 +1,29 @@
 ﻿@page
 @model FreeBilling.Web.Pages.IndexModel
 @{
-    var productName = "Free Billing Services, LLC";
-    // throw new InvalidOperationException("Error happens...");
-    ViewBag.Title = "Home Page";
+	var productName = "Free Billing Services, LLC";
+	// throw new InvalidOperationException("Error happens...");
+	ViewBag.Title = "Home Page";
 }
 
 
 <h1>@productName</h1>
 <p>Welcome to our new website</p>
+
+
+@if (Model.Customers != null&&Model.Customers.Count()>0)
+{
+	<ul>
+	@foreach (var customer in Model.Customers)
+	{
+		<li>@customer.CompanyName</li>
+	}
+	</ul>
+}
+else
+{
+	<div>No customers found</div>
+}
+
+
 
