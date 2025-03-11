@@ -14,6 +14,7 @@ configBuilder.AddJsonFile("appsettings.json")
     .AddCommandLine(args);
 
 builder.Services.AddDbContext<BillingContext>();
+builder.Services.AddScoped<IBillingRepository, BillingRepository>();
 
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<IEmailService, DevTimeEmailService>();

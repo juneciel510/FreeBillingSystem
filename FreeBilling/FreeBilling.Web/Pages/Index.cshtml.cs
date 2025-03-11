@@ -8,17 +8,17 @@ namespace FreeBilling.Web.Pages
 {
     public class IndexModel : PageModel
     {
-        private BillingContext _context;
-        public List<Customer>? Customers { get; set; }
+        private IBillingRepository _repository;
+        public IEnumerable<Customer>? Customers { get; set; }
 
-        public IndexModel(BillingContext context)
+        public IndexModel(IBillingRepository repository)
         {
-            _context = context;
+            _repository = repository;
 
         }
         public async Task OnGetAsync()
         {
-            Customers = await _context.Customers.ToListAsync();
+            Customers = await _repository.GetCustomers();
         }
     }
 }

@@ -48,7 +48,8 @@ public class BillingContext : DbContext
         }
       );
 
-    modelBuilder.Entity<Customer>()
+        //create anonymous object for customer due to the implicit AddressID
+        modelBuilder.Entity<Customer>()
       .HasData(new
       {
         Id = 1,
