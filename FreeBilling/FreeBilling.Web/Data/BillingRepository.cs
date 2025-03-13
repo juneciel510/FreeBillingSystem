@@ -46,7 +46,40 @@ public class BillingRepository : IBillingRepository
     }
   }
 
-  public async Task<bool> SaveChanges()
+    public async Task<IEnumerable<Customer>> GetCustomersWithAddresses()
+    {
+        try
+        {
+            return await _context.Customers
+                .Include(c => c.Address)
+              .OrderBy(c => c.CompanyName)
+              .ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Could not get Customers: {ex.Message}");
+            throw;
+        }
+    }
+
+    public async Task<Customer?> GetCustomer(int id)
+    {
+        try
+        {
+
+            return await _context.Customers
+                .Where(c => c.Id == id)
+                .FirstOrDefaultAsync()
+              ;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Could not get Customers: {ex.Message}");
+            throw;
+        }
+    }
+
+    public async Task<bool> SaveChanges()
   {
 
     try

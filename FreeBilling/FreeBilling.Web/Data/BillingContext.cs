@@ -54,7 +54,7 @@ public class BillingContext : DbContext
       {
         Id = 1,
         CompanyName = "Smith Towing",
-        AddressId = 1,
+        AddressID = 1,
         Contact = "Jim",
         PhoneNumber = "555-1212"
       },
