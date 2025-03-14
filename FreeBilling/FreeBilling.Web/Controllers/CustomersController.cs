@@ -7,21 +7,21 @@ namespace FreeBilling.Web.Controllers;
 [Route("/api/[controller]")]
 public class CustomersController : ControllerBase
 {
-  private readonly ILogger<CustomersController> _logger;
-  private readonly IBillingRepository _repository;
+    private readonly ILogger<CustomersController> _logger;
+    private readonly IBillingRepository _repository;
 
-  public CustomersController(ILogger<CustomersController> logger, IBillingRepository repository)
-  {
-    _logger = logger;
-    _repository = repository;
-  }
-
-  [HttpGet("")]
-  public async Task<ActionResult<IEnumerable<Customer>>> Get(bool withAddresses = false)
-  {
-    try
+    public CustomersController(ILogger<CustomersController> logger, IBillingRepository repository)
     {
-      IEnumerable<Customer> results;
+        _logger = logger;
+        _repository = repository;
+    }
+
+    [HttpGet("")]
+    public async Task<ActionResult<IEnumerable<Customer>>> Get(bool withAddresses = false)
+    {
+        try
+        {
+            IEnumerable<Customer> results;
 
             if (withAddresses)
             {
@@ -33,36 +33,36 @@ public class CustomersController : ControllerBase
             }
 
             return Ok(results);
+        }
+        catch (Exception)
+        {
+            _logger.LogError("Failed to get customers from database.");
+            return Problem("Failed to get customers from database.");
+        }
     }
-    catch (Exception)
+
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<Customer>> GetOne(int id)
     {
-      _logger.LogError("Failed to get customers from database.");
-      return Problem("Failed to get customers from database.");
+        try
+        {
+            var result = await _repository.GetCustomer(id);
+
+            if (result is null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(result);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Exception thrown while reading customer");
+
+            return Problem($"Exception thrown: {ex.Message}");
+        }
     }
-  }
-
-  [HttpGet("{id:int}")]
-  public async Task<ActionResult<Customer>> GetOne(int id)
-  {
-    try
-    {
-      var result = await _repository.GetCustomer(id);
-
-      if (result is null)
-      {
-        return NotFound();
-      }
-      else
-      {
-        return Ok(result);
-      }
-
-    }
-    catch (Exception ex)
-    {
-      _logger.LogError("Exception thrown while reading customer");
-
-      return Problem($"Exception thrown: {ex.Message}");
-    }
-  }
 }

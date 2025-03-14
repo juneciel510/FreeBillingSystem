@@ -1,4 +1,6 @@
 
+using FreeBilling.Data.Entities;
+using FreeBilling.Web.Apis;
 using FreeBilling.Web.Data;
 using FreeBilling.Web.Services;
 using System.Reflection;
@@ -41,6 +43,8 @@ app.MapRazorPages();
 //{
 //    await ctx.Response.WriteAsync("<html><body><h1> Welcome to FreeBilling</h1></body></html>");
 //});
+
+TimeBillsApi.Register(app);
 
 app.MapControllers();
 

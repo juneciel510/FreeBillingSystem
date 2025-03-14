@@ -7,35 +7,35 @@ namespace FreeBilling.Web.Pages;
 
 public class ContactModel : PageModel
 {
-  private readonly IEmailService _emailService;
+    private readonly IEmailService _emailService;
 
-  public ContactModel(IEmailService emailService)
-  {
-    _emailService = emailService;
-  }
-
-  public string Title { get; set; } = "Contact Me";
-  public string Message { get; set; } = "";
-
-  [BindProperty]
-  public ContactViewModel Contact { get; set; } = new ContactViewModel();
-
-  public void OnGet()
-  {
-  }
-
-  public void OnPost()
-  {
-    if (ModelState.IsValid)
+    public ContactModel(IEmailService emailService)
     {
-      _emailService.SendMail("bob@aol.com", Contact.Email, Contact.Subject, Contact.Body);
-      Contact = new ContactViewModel();
-      ModelState.Clear();
-      Message = "Sent...";
+        _emailService = emailService;
     }
-    else
+
+    public string Title { get; set; } = "Contact Me";
+    public string Message { get; set; } = "";
+
+    [BindProperty]
+    public ContactViewModel Contact { get; set; } = new ContactViewModel();
+
+    public void OnGet()
     {
-      Message = "Please fix the errors before sending.";
     }
-  }
+
+    public void OnPost()
+    {
+        if (ModelState.IsValid)
+        {
+            _emailService.SendMail("bob@aol.com", Contact.Email, Contact.Subject, Contact.Body);
+            Contact = new ContactViewModel();
+            ModelState.Clear();
+            Message = "Sent...";
+        }
+        else
+        {
+            Message = "Please fix the errors before sending.";
+        }
+    }
 }
