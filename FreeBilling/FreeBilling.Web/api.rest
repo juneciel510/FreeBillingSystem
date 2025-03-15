@@ -1,0 +1,33 @@
+GET http://localhost:5000/api/customers
+
+### 
+
+GET http://localhost:5000/api/customers?withAddresses=true
+
+### 
+GET http://localhost:5000/api/customers/3
+
+###
+GET http://localhost:5000/api/timebills/9
+
+
+###
+POST http://localhost:5000/api/timebills
+Content-Type: application/json
+
+{
+  "hoursWorked": 3.0,
+  "rate": 200,
+  "date": "2024-05-05",
+  "work": "I did................",
+  "customerId": 2,
+  "employeeId": 2
+}
+
+### 
+GET http://localhost:5000/api/customers/2/timebills
+
+### 
+GET http://localhost:5000/api/customers/2/timebills/5
+
+
