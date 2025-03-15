@@ -16,18 +16,18 @@ POST http://localhost:5000/api/timebills
 Content-Type: application/json
 
 {
-  "hours": 3.0,
-  "billingRate": 225.00,
+  "hoursWorked": 3.0,
+  "rate": 200,
   "date": "2024-05-05",
-  "workPerformed": "I did a thing...",
+  "work": "I did................",
   "customerId": 2,
   "employeeId": 2
 }
 
 ### 
-GET http://localhost:5000/api/customers/1/timebills
+GET http://localhost:5000/api/customers/2/timebills
 
 ### 
-GET http://localhost:5000/api/customers/1/timebills/10
+GET http://localhost:5000/api/customers/2/timebills/5
 
 
