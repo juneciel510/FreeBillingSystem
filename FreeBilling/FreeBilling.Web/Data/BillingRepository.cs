@@ -113,7 +113,7 @@ public class BillingRepository : IBillingRepository
     public async Task<IEnumerable<TimeBill>> GetTimeBillsForCustomer(int id)
     {
         return await _context.TimeBills
-            .Where(b => b.Customer!=null && b.CustomerId== id)
+            .Where(b => b.Customer != null && b.CustomerId == id)
             .Include(b => b.Employee)
             .Include(b => b.Customer)
             .ToListAsync();
@@ -122,7 +122,7 @@ public class BillingRepository : IBillingRepository
     public async Task<TimeBill?> GetTimeBillForCustomer(int id, int billId)
     {
         return await _context.TimeBills
-            .Where(b => b.Customer != null && b.CustomerId == id&&b.Id==billId)
+            .Where(b => b.Customer != null && b.CustomerId == id && b.Id == billId)
             .Include(b => b.Employee)
             .Include(b => b.Customer)
             .FirstOrDefaultAsync();

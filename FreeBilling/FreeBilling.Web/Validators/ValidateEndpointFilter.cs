@@ -7,7 +7,7 @@ namespace FreeBilling.Web.Validators
     {
         public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
         {
-            
+
             var validator = context.HttpContext.RequestServices.GetRequiredService<IValidator<T>>();
             var model = context.Arguments.
             OfType<T>()
@@ -22,7 +22,7 @@ namespace FreeBilling.Web.Validators
             }
 
             return await next(context);
-            
+
         }
     }
 }

@@ -12,7 +12,7 @@ namespace FreeBilling.Web.Apis
     {
         public static void Register(WebApplication app)
         {
-            var group=app.MapGroup("/api/timebills")
+            var group = app.MapGroup("/api/timebills")
                 .AllowAnonymous();
 
             group.MapGet("{id:int}", GetTimeBill).WithName("GetTimeBill");
