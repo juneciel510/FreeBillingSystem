@@ -9,9 +9,11 @@ using Mapster;
 using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using FreeBilling.Web.Data.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("BillingContextConnection") ?? throw new InvalidOperationException("Connection string 'BillingContextConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("BillingDb") 
+    ?? throw new InvalidOperationException("Connection string 'BillingDb' not found.");
 
 IConfigurationBuilder configBuilder = builder.Configuration;
 configBuilder.Sources.Clear();
@@ -23,7 +25,12 @@ configBuilder.AddJsonFile("appsettings.json")
 
 builder.Services.AddDbContext<BillingContext>();
 
-builder.Services.AddDefaultIdentity<TimeBillUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<BillingContext>();
+builder.Services.AddDefaultIdentity<TimeBillUser>(options => 
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequiredLength = 8;
+})
+    .AddEntityFrameworkStores<BillingContext>();
 builder.Services.AddScoped<IBillingRepository, BillingRepository>();
 
 builder.Services.AddRazorPages();
@@ -47,7 +54,8 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 
 //Add Routing
-app.UseRouting();
+//app.UseRouting();
+app.UseAuthentication();
 
 //Add Authorization
 app.UseAuthorization();
