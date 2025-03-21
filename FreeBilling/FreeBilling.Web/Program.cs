@@ -41,6 +41,12 @@ app.UseDefaultFiles();
 //Allows us to serve files from wwwroot folder
 app.UseStaticFiles();
 
+//Add Routing
+app.UseRouting();
+
+//Add Authorization
+app.UseAuthorization();
+
 app.MapRazorPages();
 
 //app.MapGet("/", () => "Hello World!");

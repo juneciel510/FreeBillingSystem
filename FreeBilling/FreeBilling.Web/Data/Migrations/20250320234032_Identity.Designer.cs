@@ -4,6 +4,7 @@ using FreeBilling.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FreeBilling.Web.Migrations
 {
     [DbContext(typeof(BillingContext))]
-    partial class BillingContextModelSnapshot : ModelSnapshot
+    [Migration("20250320234032_Identity")]
+    partial class Identity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,7 +224,7 @@ namespace FreeBilling.Web.Migrations
                     b.ToTable("TimeBills");
                 });
 
-            modelBuilder.Entity("FreeBilling.Web.Data.Entities.TimeBillUser", b =>
+            modelBuilder.Entity("FreeBilling.Web.Data.Entities.TImeBillUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -457,7 +460,7 @@ namespace FreeBilling.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("FreeBilling.Web.Data.Entities.TimeBillUser", null)
+                    b.HasOne("FreeBilling.Web.Data.Entities.TImeBillUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -466,7 +469,7 @@ namespace FreeBilling.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("FreeBilling.Web.Data.Entities.TimeBillUser", null)
+                    b.HasOne("FreeBilling.Web.Data.Entities.TImeBillUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -481,7 +484,7 @@ namespace FreeBilling.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FreeBilling.Web.Data.Entities.TimeBillUser", null)
+                    b.HasOne("FreeBilling.Web.Data.Entities.TImeBillUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -490,7 +493,7 @@ namespace FreeBilling.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("FreeBilling.Web.Data.Entities.TimeBillUser", null)
+                    b.HasOne("FreeBilling.Web.Data.Entities.TImeBillUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
