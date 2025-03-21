@@ -7,8 +7,11 @@ using FreeBilling.Web.Services;
 using FreeBilling.Web.Validators;
 using Mapster;
 using System.Reflection;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("BillingContextConnection") ?? throw new InvalidOperationException("Connection string 'BillingContextConnection' not found.");
 
 IConfigurationBuilder configBuilder = builder.Configuration;
 configBuilder.Sources.Clear();
@@ -19,6 +22,8 @@ configBuilder.AddJsonFile("appsettings.json")
     .AddCommandLine(args);
 
 builder.Services.AddDbContext<BillingContext>();
+
+builder.Services.AddDefaultIdentity<TimeBillUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<BillingContext>();
 builder.Services.AddScoped<IBillingRepository, BillingRepository>();
 
 builder.Services.AddRazorPages();
