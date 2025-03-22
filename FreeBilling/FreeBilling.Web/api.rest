@@ -1,6 +1,5 @@
 GET http://localhost:5000/api/customers
-
-### 
+Authorization:Bearer CfDJ8Kr98FAGjclEnyST6RDljqr9vmQp6EP5XuQrfeR9c8GYlGeZP2vb6goAU-9rNEiikFq6n5rNvemmCqGuYVABA58me3leQGjK-y_L4sqIsZBAPm--EA7IMhRqjlEB8eNjt13wcNkIU0X-PkaTRAQzQ0ad_Q0tT-c4JsUEXSu0V1GXJvHd6lg0_Z49JWCf-wgzMpp1nCTP4psLeZdbPbEIUdOzqTYQgJViu4rrRjwVXONuL449Ycw_yn0mlaE5AX-_xoYuJIQZPbLw5YGhQZxjlYVcPtIGHEkJzg7AQ_XYW5aLkVvxcZcWJC9t_zH41eh4uN94GWxRyJUEe_ahG9zVKUxHvCQOjnEApH0W30PobQRzQh6wouy9_EG-wBcnBR5dLQvSTON_NkJhXKq9BJb-qj9vG-XRuhgottIg5cNA7ZrQSUAUG8ME1bA6PkiXKmE8yYKp-wC4YaDrjr28EFo77VHe3_VtgJ1XNJhibvn8B2AyoMk9AlBAdjSu1CLWcwn5yHUBHsVVxTH3e3HL2-Kao_MiQXxSM7zw3-bfFw7l4MeDJhC0hD_UA3B1OA4bbSWqYhltPSTRzh5qd8ZO0wS0AiZsgqW9nDGlU30jj1v2qDh0F1Ffz4DdbbzjITzaTIRvxkp0cObtnbdeuPP0AzNT4Pcwaj7cp_TSN8nrb0nRiPW7TelfGkR1QAlKXKVF9_k_UM3-r5EcYW3p25srUMlo6MA
 
 GET http://localhost:5000/api/customers?withAddresses=true
 
@@ -30,4 +29,14 @@ GET http://localhost:5000/api/customers/2/timebills
 ### 
 GET http://localhost:5000/api/customers/2/timebills/5
 
+### 
+POST http://localhost:5000/api/customers/2/timebills/5
 
+### 
+POST http://localhost:5000/api/auth/login
+Content-type: application/json
+{
+  "email": "chenlejun@gmail.com",
+    "password": "6iwJs_8_AX*Q8pa"
+
+}

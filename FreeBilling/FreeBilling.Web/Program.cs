@@ -25,12 +25,21 @@ configBuilder.AddJsonFile("appsettings.json")
 
 builder.Services.AddDbContext<BillingContext>();
 
-builder.Services.AddDefaultIdentity<TimeBillUser>(options => 
+builder.Services.AddIdentityApiEndpoints<TimeBillUser>(options => 
 {
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequiredLength = 8;
 })
     .AddEntityFrameworkStores<BillingContext>();
+
+builder.Services.AddAuthentication().AddBearerToken();
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("api", cfg => 
+    {
+        cfg.AddAuthenticationSchemes(IdentityConstants.BearerScheme);
+        cfg.RequireAuthenticatedUser();
+    });
+
 builder.Services.AddScoped<IBillingRepository, BillingRepository>();
 
 builder.Services.AddRazorPages();
@@ -71,5 +80,7 @@ app.MapRazorPages();
 TimeBillsApi.Register(app);
 
 app.MapControllers();
+
+app.MapGroup("api/auth").MapIdentityApi<TimeBillUser>();
 
 app.Run();

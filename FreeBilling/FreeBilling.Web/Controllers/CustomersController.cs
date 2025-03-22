@@ -1,9 +1,13 @@
 ﻿using FreeBilling.Data.Entities;
 using FreeBilling.Web.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FreeBilling.Web.Controllers;
-
+//api is the name of the policy we created in Program.cs
+[Authorize("api")]
 [Route("/api/[controller]")]
 public class CustomersController : ControllerBase
 {
@@ -16,6 +20,7 @@ public class CustomersController : ControllerBase
         _repository = repository;
     }
 
+    //[AllowAnonymous]
     [HttpGet("")]
     public async Task<ActionResult<IEnumerable<Customer>>> Get(bool withAddresses = false)
     {
