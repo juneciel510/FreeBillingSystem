@@ -13,4 +13,5 @@ public interface IBillingRepository
     Task<bool> SaveChanges();
     Task<IEnumerable<TimeBill>> GetTimeBillsForCustomer(int id);
     Task<TimeBill?> GetTimeBillForCustomer(int id, int billId);
+    Task<Employee?> GetEmployee(string? name);
 }

@@ -5,20 +5,24 @@ using FreeBilling.Web.Models;
 using FreeBilling.Web.Validators;
 using Mapster;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 
 namespace FreeBilling.Web.Apis
 {
+    //minimal api for timebills
     public static class TimeBillsApi
     {
         public static void Register(WebApplication app)
         {
-            var group = app.MapGroup("/api/timebills")
-                .AllowAnonymous();
+            var group = app.MapGroup("/api/timebills");
 
-            group.MapGet("{id:int}", GetTimeBill).WithName("GetTimeBill");
+            group.MapGet("{id:int}", GetTimeBill)
+                .WithName("GetTimeBill")
+                .RequireAuthorization("ApiPolicy");
 
             group.MapPost("", PostTimeBill)
-                .AddEndpointFilter<ValidateEndpointFilter<TimeBillModel>>();
+                .AddEndpointFilter<ValidateEndpointFilter<TimeBillModel>>()
+                .RequireAuthorization("ApiPolicy");
         }
 
         public static async Task<IResult> GetTimeBill(IBillingRepository repository, int id)
@@ -33,18 +37,20 @@ namespace FreeBilling.Web.Apis
         }
 
         public static async Task<IResult> PostTimeBill(IBillingRepository repository,
-            TimeBillModel model)
+            TimeBillModel model,
+            ClaimsPrincipal user)
         {
             var newEntity = model.Adapt<TimeBill>();
-            //var newEntity =new TimeBill
-            //{
-            //    EmployeeId = model.EmployeeId,
-            //    CustomerId = model.CustomerId,
-            //    Hours = model.HoursWorked,
-            //    BillingRate = model.Rate,
-            //    Date = model.Date,
-            //    WorkPerformed = model.Work
-            //};
+            
+            var employee = await repository.GetEmployee(user.Identity?.Name!);
+
+            if(employee is null)
+            {
+                return Results.BadRequest("No employee with user's email.");
+            }
+
+            newEntity.EmployeeId = employee?.Id;
+
             repository.AddEntity<TimeBill>(newEntity);
             if (await repository.SaveChanges())
             {

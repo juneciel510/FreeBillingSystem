@@ -100,7 +100,7 @@ public class BillingContext : IdentityDbContext<TimeBillUser>
               Name = "John Phillips",
               BillingRate = 145f,
               ImageUrl = "/img/john.jpg",
-              Email = "john@freebilling.com"
+              Email = "chenlejun@gmail.com"
           });
     }
 }

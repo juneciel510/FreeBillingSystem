@@ -10,6 +10,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using FreeBilling.Web.Data.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("BillingDb") 
@@ -36,9 +37,25 @@ builder.Services.AddAuthentication().AddBearerToken();
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("api", cfg => 
     {
-        cfg.AddAuthenticationSchemes(IdentityConstants.BearerScheme);
         cfg.RequireAuthenticatedUser();
+        cfg.AddAuthenticationSchemes(IdentityConstants.BearerScheme);
     });
+
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("ApiPolicy", cfg =>
+    {
+        cfg.RequireAuthenticatedUser();
+        cfg.AddAuthenticationSchemes(IdentityConstants.BearerScheme);
+    });
+
+//builder.Services.AddAuthorization(cfg =>
+//{
+//    cfg.AddPolicy("ApiPolicy", policy =>
+//    {
+//        policy.RequireAuthenticatedUser();
+//        policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
+//    });
+//});
 
 builder.Services.AddScoped<IBillingRepository, BillingRepository>();
 
